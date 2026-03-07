@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="habits-page">
+    <!-- Header with date display -->
+    <div class="habits-header">
+        <h1 class="title">Track Your Habits</h1>
+        <p class="current-date">{{ selected_date }}</p>
+    </div>
+
+    <!-- Main habits grid - takes up most of the page -->
+    <div class="habits-grid">
+        {% if habits %}
+            {% for habit in habits %}
+                {% if not habit.is_completed %}
+                <form method="POST" class="habit-card">
+                    <input type="hidden" name="habit_id" value="{{ habit.id }}">
+                    <input type="hidden" name="date" value="{{ selected_date }}">
+                    
+                    <div class="habit-checkbox-wrapper">
+                        <input 
+                            type="checkbox" 
+                            id="habit-{{ habit.id }}" 
+                            onchange="this.form.submit()"
+                        >
+                        <label for="habit-{{ habit.id }}">
+                            <span class="habit-name">{{ habit.habit }}</span>
+                        </label>
+                    </div>
+                </form>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p class="no-habits">No habits to track yet! <a href="/add-habit">Add your first habit</a></p>
+        {% endif %}
+        
+        {% if all_completed %}
+            <div class="all-done">
+                <h2>🎉 All habits completed!</h2>
+                <p>Great job for {{ selected_date }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Date picker in bottom right corner -->
+    <div class="date-picker-float">
+        <form method="POST" class="date-form">
+            <label for="date-input">Change Date:</label>
+            <input 
+                type="date" 
+                id="date-input"
+                name="date" 
+                value="{{ selected_date }}" 
+                onchange="this.form.submit()"
+            >
+        </form>
+    </div>
+</div>
+{% endblock %}

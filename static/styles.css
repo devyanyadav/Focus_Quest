@@ -1,0 +1,691 @@
+/* ---------- Typography & resets ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+.title {
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  color: #001f3f; /* keep your navy title */
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.4);
+}
+
+/* ---------- Page / main ---------- */
+.main {
+  font-family: 'Poppins', sans-serif;
+  /* softer dark gradient (less flat than pure black) */
+  background: linear-gradient(180deg, #111419 0%, #0b0c10 100%);
+  min-height: 100vh;
+  color: #e6e9eb; /* slightly warm, readable light text */
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  background-color: rgba(20, 24, 30, 0.95); /* slightly lighter than body */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  /* softer shadow so navbar lifts but doesn't glare */
+  box-shadow: 0 6px 18px rgba(2, 6, 12, 0.45);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(4px); /* subtle glassy effect */
+}
+
+/* Brand / logo */
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #dbe7f7; /* light, slightly cool logo color */
+}
+
+/* Nav links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #c9d4df; /* lighter muted blue-gray for good contrast */
+  font-weight: 500;
+  transition: color 0.25s ease, transform 0.18s ease;
+}
+
+.nav-links a:hover {
+  color: #66baff; /* gentle, focusable accent */
+  transform: translateY(-2px);
+}
+
+/* ---------- Separator ---------- */
+.nav-separator {
+  border: none;
+  height: 1px;
+  /* softer white with lower opacity so it's subtle but visible */
+  background-color: rgba(255,255,255,0.16);
+  margin: 28px 0;
+  width: 100%;
+}
+
+/* ---------- Card list (buttons) ---------- */
+.card-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 36px;
+  padding: 0;
+  margin: 80px 20px;
+  flex-wrap: wrap;
+}
+
+/* base card (button) */
+.card {
+  width: 260px;
+  padding: 24px 20px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  color: #fbfbfb;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  transition: transform 0.28s cubic-bezier(.2,.9,.25,1),
+              box-shadow 0.28s ease,
+              filter 0.28s ease;
+  /* subtle inner contrast for readability on colored backgrounds */
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.08));
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+/* hover + active */
+.card:hover {
+  transform: translateY(-8px);
+  filter: saturate(1.03);
+}
+
+/* keyboard focus (accessibility) */
+.card:focus {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.55), 0 0 0 4px rgba(102,186,255,0.12);
+}
+
+/* ---------- Orange card (brighter/softer) ---------- */
+.card.orange {
+  background: linear-gradient(145deg, #ff9a3d 0%, #ff6a1f 100%);
+  box-shadow: 0 12px 30px rgba(255, 122, 40, 0.20);
+  color: #08100a; /* near-black text works well on bright orange */
+}
+
+.card.orange h2 {
+  color: #08120a; /* stronger title on card */
+}
+
+/* orange hover glow */
+.card.orange:hover {
+  box-shadow: 0 14px 44px rgba(255, 122, 40, 0.28);
+}
+
+/* ---------- Green card (brighter/softer) ---------- */
+.card.green {
+  background: linear-gradient(145deg, #28d27f 0%, #05b36b 100%);
+  box-shadow: 0 12px 30px rgba(6, 176, 106, 0.20);
+  color: #03110b; /* near-black text for legibility */
+}
+
+.card.green h2 {
+  color: #03120b;
+}
+
+.card.green:hover {
+  box-shadow: 0 14px 44px rgba(6, 176, 106, 0.28);
+}
+
+/* ---------- Card content ---------- */
+.card h2 {
+  margin-bottom: 8px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.card p {
+  color: rgba(2, 6, 8, 0.9); /* dark text over bright card bg for readability */
+  font-size: 0.95rem;
+  line-height: 1.45;
+  opacity: 0.98;
+}
+
+/* ---------- Responsive: stack cards on small screens ---------- */
+@media (max-width: 720px) {
+  .card-list {
+    flex-direction: column;
+    gap: 18px;
+    margin: 40px 16px;
+    align-items: stretch;
+  }
+  .card {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .navbar {
+    padding: 12px 20px;
+  }
+}
+
+/* ---------- Add Habit (Purple) Card ---------- */
+.card.purple {
+  background: linear-gradient(145deg, #9b5cff 0%, #7a35f3 100%);
+  box-shadow: 0 12px 30px rgba(139, 92, 246, 0.25);
+  color: #f9f6ff;
+}
+
+.card.purple h2 {
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+/* Form inside the purple card */
+.card.purple form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.card.purple input[type="text"] {
+  width: 85%;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card.purple input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.card.purple input[type="text"]:focus {
+  background-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
+}
+
+/* Submit button styling */
+.card.purple button[type="submit"] {
+  background-color: #ff9a3d;
+  color: #101010;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card.purple button[type="submit"]:hover {
+  background-color: #ffb05d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(255, 154, 61, 0.35);
+}
+
+/* ---------- Auth form container ---------- */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background: linear-gradient(180deg, #111419 0%, #0b0c10 100%);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ---------- Form box ---------- */
+.auth-form {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 40px 50px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+/* ---------- Heading ---------- */
+.auth-form h2 {
+  color: #dbe7f7;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+/* ---------- Input fields ---------- */
+.auth-form input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f1f4f6;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+}
+
+.auth-form input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #9f7fff;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(159, 127, 255, 0.15);
+}
+
+/* ---------- Submit button ---------- */
+.auth-form button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #9f7fff 0%, #7b5cff 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.auth-form button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(127, 98, 255, 0.3);
+}
+
+/* ---------- Habits Page ---------- */
+.habits-page {
+  min-height: 100vh;
+  padding: 40px 20px 120px 20px; /* extra bottom padding for floating date picker */
+  position: relative;
+}
+
+/* ---------- Header ---------- */
+.habits-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.habits-header .title {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+}
+
+.current-date {
+  font-size: 1.1rem;
+  color: #9ca8b3;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- Habits Grid ---------- */
+.habits-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  padding: 0 20px;
+}
+
+/* ---------- Individual Habit Card ---------- */
+.habit-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  cursor: pointer;
+}
+
+.habit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(102, 186, 255, 0.15);
+  background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+}
+
+/* ---------- Checkbox Styling ---------- */
+.habit-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.habit-checkbox-wrapper input[type="checkbox"] {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  accent-color: #66baff;
+  border-radius: 6px;
+}
+
+.habit-checkbox-wrapper label {
+  cursor: pointer;
+  flex: 1;
+}
+
+.habit-name {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #e6e9eb;
+  letter-spacing: 0.3px;
+}
+
+/* ---------- Date Picker (Bottom Right) ---------- */
+.date-picker-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(145deg, #9b5cff 0%, #7a35f3 100%);
+  padding: 20px 26px;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(139, 92, 246, 0.4);
+  backdrop-filter: blur(10px);
+  z-index: 50;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.date-picker-float:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 50px rgba(139, 92, 246, 0.5);
+}
+
+.date-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.date-form label {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+}
+
+.date-form input[type="date"] {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.date-form input[type="date"]:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+/* Make the calendar icon white */
+.date-form input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+/* ---------- Empty/Completed States ---------- */
+.no-habits {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #9ca8b3;
+  font-size: 1.1rem;
+}
+
+.no-habits a {
+  color: #66baff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.no-habits a:hover {
+  color: #8fcdff;
+}
+
+.all-done {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(145deg, rgba(40, 210, 127, 0.12), rgba(5, 179, 107, 0.08));
+  border-radius: 20px;
+  border: 2px solid rgba(40, 210, 127, 0.3);
+}
+
+.all-done h2 {
+  font-size: 2rem;
+  color: #28d27f;
+  margin-bottom: 12px;
+}
+
+.all-done p {
+  color: #c9d4df;
+  font-size: 1.1rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .habits-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .date-picker-float {
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    padding: 16px 20px;
+  }
+  
+  .date-form {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .date-form input[type="date"] {
+    flex: 1;
+  }
+}
+
+/* ---------- Stats Page ---------- */
+.stats-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* ---------- Header ---------- */
+.stats-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.stats-header .title {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.stats-subtitle {
+  font-size: 1.1rem;
+  color: #9ca8b3;
+  font-weight: 400;
+}
+
+/* ---------- Summary Cards ---------- */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto 60px auto;
+  padding: 0 20px;
+}
+
+.stat-card {
+  border-radius: 16px;
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Orange card */
+.stat-card.orange {
+  background: linear-gradient(145deg, #ff9a3d 0%, #ff6a1f 100%);
+}
+
+/* Green card */
+.stat-card.green {
+  background: linear-gradient(145deg, #28d27f 0%, #05b36b 100%);
+}
+
+/* Purple card */
+.stat-card.purple {
+  background: linear-gradient(145deg, #9b5cff 0%, #7a35f3 100%);
+}
+
+.stat-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-content h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #08100a;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: 4px;
+}
+
+/* ---------- Charts Container ---------- */
+.charts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------- Chart Cards ---------- */
+.chart-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(102, 186, 255, 0.15);
+}
+
+.chart-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #dbe7f7;
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+.chart-wrapper {
+  position: relative;
+  height: 300px;
+}
+
+.chart-wrapper canvas {
+  max-height: 100%;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-card {
+    padding: 24px;
+  }
+  
+  .chart-wrapper {
+    height: 250px;
+  }
+  
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .stat-icon {
+    font-size: 2.5rem;
+  }
+}

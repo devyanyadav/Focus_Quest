@@ -1,0 +1,7 @@
+# Uncomment the line below when deploying to production (Railway/Render)
+# *.db
+*.pyc
+__pycache__/
+flask_session/
+.env
+*.db-journal

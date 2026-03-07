@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-form" style="text-align:center;">
+        <div style="font-size: 3rem; margin-bottom: 16px;">😬</div>
+        <h2 style="color:#ff6a6a; margin-bottom: 12px;">{{ top }}</h2>
+        <p style="color:#c9d4df; font-size: 1.1rem; margin-bottom: 24px;">{{ bottom }}</p>
+        <a href="javascript:history.back()">
+            <button style="background: linear-gradient(145deg,#9b5cff,#7a35f3); color:#fff; border:none; padding:10px 24px; border-radius:10px; cursor:pointer; font-size:1rem;">
+                Go Back
+            </button>
+        </a>
+    </div>
+</div>
+{% endblock %}

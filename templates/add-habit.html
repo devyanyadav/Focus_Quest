@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<ul class="card-list">
+  <!-- Add Habit Card -->
+  <li>
+    <div class="card purple">
+      <h2>Add a Habit</h2>
+      <form method="POST" action="{{ url_for('add_habit') }}">
+        <input type="text" name="habit" placeholder="Enter a new habit" required>
+        <button type="submit">Add</button>
+      </form>
+    </div>
+  </li>
+
+  <!-- FIX: Valid HTML - li wrapping the card, not a nested ul -->
+  <li>
+    <div class="card orange">
+      <h2>My Habits</h2>
+      {% if habits %}
+        {% for habit in habits %}
+          <p style="margin: 6px 0; font-size: 0.95rem;">• {{ habit.habit }}</p>
+        {% endfor %}
+      {% else %}
+        <p style="opacity: 0.7; font-size: 0.9rem;">No habits added yet.</p>
+      {% endif %}
+    </div>
+  </li>
+</ul>
+
+{% endblock %}

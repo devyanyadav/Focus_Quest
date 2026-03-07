@@ -1,0 +1,183 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="stats-page">
+    <!-- Header -->
+    <div class="stats-header">
+        <h1 class="title">Your Statistics</h1>
+        <p class="stats-subtitle">Track your progress and stay motivated</p>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+        <div class="stat-card orange">
+            <div class="stat-icon">📊</div>
+            <div class="stat-content">
+                <h3>Total Habits</h3>
+                <p class="stat-number">{{ total_habits }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card green">
+            <div class="stat-icon">✓</div>
+            <div class="stat-content">
+                <h3>Completion Rate</h3>
+                <p class="stat-number">{{ completion_rate }}%</p>
+                <p class="stat-label">Last 30 days</p>
+            </div>
+        </div>
+
+        <div class="stat-card purple">
+            <div class="stat-icon">🔥</div>
+            <div class="stat-content">
+                <h3>Current Streak</h3>
+                <p class="stat-number">{{ streak }} day</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-container">
+        <!-- bar Chart -->
+        <div class="chart-card">
+            <h2 class="chart-title">Number of times each habit completed</h2>
+            <div class="chart-wrapper">
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Line Chart -->
+        <div class="chart-card">
+            <h2 class="chart-title">Completion rate (last 30 days)</h2>
+            <div class="chart-wrapper">
+                <canvas id="lineChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<!-- Your JavaScript code will go here -->
+<script>
+    // ========== LINE CHART ==========
+    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    const lineChart = new Chart(lineCtx, {
+        type: 'line',
+        data: {
+            labels: {{ last_30_days  | safe }},
+            datasets: [{
+                label: 'Completion Rate (%)',
+                data: {{ completion_rate_30_days | safe  }},
+                borderColor: '#66baff',
+                backgroundColor: 'rgba(102, 186, 255, 0.1)', 
+                borderWidth: 3,
+                tension: 0.4,
+                fill: true,
+                pointRadius: 4,
+                pointBackgroundColor: '#66baff',
+                pointBorderColor : '#fff',
+                pointBorderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#e6e9eb',
+                        font: { size: 14 }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        color: '#9ca8b3',
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#9ca8b3',
+                        maxRotation: 45,
+                        minRotation: 45
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.05)'
+                    }
+                }
+            }
+        }
+    });
+
+    // ========== BAR CHART ==========
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    const barChart = new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ habit_names | safe }},
+            datasets: [{
+                label: 'Times Completed',
+                data: {{ habit_counts | safe  }},
+                backgroundColor: [
+                    'rgba(40, 210, 127, 0.8)',
+                    'rgba(255, 154, 61, 0.8)',
+                    'rgba(155, 92, 255, 0.8)',
+                    'rgba(102, 186, 255, 0.8)',
+                    'rgba(255, 99, 132, 0.8)'
+                ],
+                borderColor: [
+                    '#28d27f',
+                    '#ff9a3d',
+                    '#9b5cff',
+                    '#66baff',
+                    '#ff6384'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#9ca8b3',
+                        stepSize: 1
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#9ca8b3'
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+    
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<ul class="card-list">
+  <li>
+    <a href="{{ url_for('habits') }}">
+      <button class="card orange">
+        <h2>Habits</h2>
+        <p>Log your daily habits.</p>
+      </button>
+    </a>
+  </li>
+
+  <li>
+    <button class="card green">
+      <h2>Quote of the day</h2>
+      <p id="quote"></p>
+    </button>
+  </li>
+
+  <!-- FIX: Added Stats card so it's accessible from homepage -->
+  <li>
+    <a href="{{ url_for('stats') }}">
+      <button class="card purple">
+        <h2>Stats</h2>
+        <p>View your progress and streaks.</p>
+      </button>
+    </a>
+  </li>
+</ul>
+{% endblock %}
