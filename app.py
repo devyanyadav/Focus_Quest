@@ -21,6 +21,38 @@ def query(sql, *args):
     con.close()
     return [dict(row) for row in rows]
 
+def init_db():
+    con = sqlite3.connect("habit.db")
+    con.executescript("""
+        CREATE TABLE IF NOT EXISTS users (
+            user_id INTEGER PRIMARY KEY,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS habit (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            habit TEXT NOT NULL,
+            number_of_habit INTEGER,
+            created_at TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(user_id)
+        );
+        CREATE TABLE IF NOT EXISTS habit_completion (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            habit_id INTEGER NOT NULL,
+            date DATE NOT NULL,
+            completed BOOLEAN DEFAULT 0,
+            FOREIGN KEY (user_id) REFERENCES users(user_id),
+            FOREIGN KEY (habit_id) REFERENCES habit(id),
+            UNIQUE(user_id, habit_id, date)
+        );
+    """)
+    con.commit()
+    con.close()
+
+init_db()
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
